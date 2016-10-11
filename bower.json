@@ -1,0 +1,19 @@
+{
+  "name": "blog",
+  "description": "blog",
+  "main": "",
+  "authors": [
+    ""
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    ""
+  ],
+  "dependencies": {
+    "jquery": "^3.1.1",
+    "font-awesome": "^4.6.3",
+    "parsleyjs": "^2.5.0",
+    "tinymce": "^4.4.3"
+  }
+}
