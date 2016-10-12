@@ -18,3 +18,4 @@ Route::get('/', function () {
 Route::auth();
 
 Route::get('/admin', 'HomeController@index');
+Route::resource('posts','PostController');
