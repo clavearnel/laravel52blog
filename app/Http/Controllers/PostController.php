@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Post;
 
 class PostController extends Controller
 {
@@ -19,7 +20,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        //
+        $posts = Post::orderBy('created_at','desc')->paginate(10);
+        return view('posts.index')->withPosts($posts);
     }
 
     /**
@@ -29,7 +31,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -40,7 +42,18 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'body' => 'required',
+        ]);
+
+        $post = new Post;
+        $post->title = $request->title;
+        $post->body = $request->body;
+
+        $post->save();
+        flash()->overlay('You have successfully added a post', 'Success');
+        return redirect()->route('posts.show',$post->id);
     }
 
     /**
@@ -51,7 +64,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.show')->withPost($post);
     }
 
     /**
@@ -62,7 +76,8 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $post = Post::find($id);
+        return view('posts.edit')->withPost($post);
     }
 
     /**
@@ -74,7 +89,18 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required|max:255',
+            'body' => 'required',
+        ]);
+
+        $post = Post::find($id);
+        $post->title = $request->input('title');
+        $post->body = $request->input('body');
+
+        $post->save();
+        flash()->overlay('You have successfully updated a post', 'Success');
+        return redirect()->route('posts.show',$post->id);
     }
 
     /**
@@ -85,6 +111,9 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::find($id);
+        $post->delete();
+        flash()->overlay('You have successfully deleted a post', 'Delete');
+        return redirect()->route('posts.index');
     }
 }
