@@ -39,6 +39,9 @@
                 @endforeach
                 </tbody>
             </table>
+            {{ $posts->links() }}
+            {{ $posts->nextPageUrl() }}
+            {{ $posts->previousPageUrl() }}
         </div>
     </div>
 @endsection

@@ -11,10 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('pages.index');
-});
-
+Route::get('/', 'IndexController@index');
+Route::get('/about', 'IndexController@about')->name('pages.about');
+Route::get('/post/{post_id}', 'IndexController@post')->name('pages.post');
 Route::auth();
 
 Route::get('/admin', 'HomeController@index');
