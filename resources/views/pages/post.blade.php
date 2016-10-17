@@ -13,7 +13,7 @@
                 <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
                     <div class="post-heading">
                         <h1>{{ $post->title }}</h1>
-                       {{-- <h2 class="subheading">Problems look mighty small from 150 miles up</h2>--}}
+                        {{-- <h2 class="subheading">Problems look mighty small from 150 miles up</h2>--}}
                         <span class="meta">Posted by <a href="#">Start Bootstrap</a> on August 24, 2014</span>
                     </div>
                 </div>
@@ -27,6 +27,7 @@
             <article>
                 {{ $post->body }}
             </article>
+            <p>Posted In: {{ $post->category->name }}</p>
         </div>
     </div>
 @endsection

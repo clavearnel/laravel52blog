@@ -35,6 +35,17 @@
             <a class="navbar-brand" href="{{ url('/') }}">
                 Home
             </a>
+            <ul class="nav navbar-nav navbar-left">
+                <li>
+                    <a href="{{ route('posts.index') }}">Posts</a>
+                </li>
+                <li>
+                    <a href="{{ route('categories.index') }}">Categories</a>
+                </li>
+                <li>
+                    <a href="contact.html">Contact</a>
+                </li>
+            </ul>
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">

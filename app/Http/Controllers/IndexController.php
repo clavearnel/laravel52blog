@@ -13,8 +13,8 @@ class IndexController extends Controller {
     public function about() {
         return view('pages.about');
     }
-    public function post($id) {
-        $post = Post::find($id);
+    public function post($slug) {
+        $post = Post::where('slug', '=', $slug)->first();
 
         return view('pages.post')->withPost($post);
     }
