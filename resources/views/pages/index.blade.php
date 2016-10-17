@@ -32,7 +32,7 @@
                             {{ $post->title }}
                         </h2>
                         <h3 class="post-subtitle">
-                            {{ $post->body }}
+                            {{ substr($post->body , 0, 50)}} {{ strlen($post->body) > 50 ? "..." : "" }}
                         </h3>
                     </a>
                     <p class="post-meta">Posted by <a href="#">Start Bootstrap</a> on September 24, 2014</p>
