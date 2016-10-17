@@ -1,4 +1,4 @@
-# Laravel PHP Framework
+# Laravel 5.2 Blog Project
 
 [Laravel 5.2](https://laravel.com/docs/5.2/)
 
