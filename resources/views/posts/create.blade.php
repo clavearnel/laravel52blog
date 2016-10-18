@@ -2,6 +2,7 @@
 @section('pagetitle', 'Posts - Create Post')
 @section('style')
     {!! Html::style('assets/css/parsley.css') !!}
+    {!! Html::style('assets/css/select2.min.css') !!}
 @endsection
 @section('content')
     <div class="row">
@@ -10,6 +11,20 @@
             {!! Form::open(array('route'=>'posts.store', 'data-parsley-validate'=>'')) !!}
             {!! Form::label('title', 'Title') !!}
             {!! Form::text('title', null, ['class'=>'form-control', 'required'=>'', 'maxlength'=>'255']) !!}
+            {{ Form::label('category_id', 'Category')  }}
+            <select name="category_id" id="category_id" class="form-control" required>
+                <option value="">Select</option>
+                @foreach($categories as $category)
+                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                @endforeach
+            </select>
+            {{ Form::label('tags', 'Tags')  }}
+            <select name="tags[]" id="tags" class="form-control select2-multi" required multiple="multiple">
+                <option value="">Select</option>
+                @foreach($tags as $tag)
+                    <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                @endforeach
+            </select>
             {!! Form::label('body', 'Body') !!}
             {!! Form::textarea('body', null, ['class'=>'form-control', 'required'=>'']) !!}
             {!! Form::submit('Create Post',['class'=>'btn btn-success', 'style'=>'margin-top:10px;']) !!}
@@ -21,4 +36,8 @@
 
 @section('script')
     {!! Html::script('assets/js/parsley.min.js')  !!}
+    {!! Html::script('assets/js/select2.min.js')  !!}
+    <script type="text/javascript">
+        $(".select2-multi").select2();
+    </script>
 @endsection

@@ -21,3 +21,5 @@ Route::get('/admin', 'HomeController@index');
 Route::resource('posts','PostController');
 //categories
 Route::resource('categories','CategoryController', ['except'=> ['create']]);
+//tags
+Route::resource('tags','TagController', ['except'=> ['create']]);

@@ -1,7 +1,8 @@
 @extends('layouts.app')
 @section('pagetitle', 'Posts - Show Post')
 @section('style')
-
+    {!! Html::style('assets/css/parsley.css') !!}
+    {!! Html::style('assets/css/select2.min.css') !!}
 @endsection
 @section('content')
     <div class="row">
@@ -9,6 +10,10 @@
         <div class="col-md-8">
             {!! Form::label('title', 'Title') !!}
             {!! Form::text('title', null, ['class'=>'form-control', 'required'=>'', 'maxlength'=>'255']) !!}
+            {{ Form::label('category_id', 'Category')  }}
+            {{ Form::select('category_id', $categories, null, ['class'=>'form-control', 'required'=>''] ) }}
+            {{ Form::label('tags', 'Tags')  }}
+            {{ Form::select('tags[]', $tags, null, ['class'=>'form-control select2-multi', 'multiple'=> 'multiple'] ) }}
             {!! Form::label('body', 'Body') !!}
             {!! Form::textarea('body', null, ['class'=>'form-control', 'required'=>'']) !!}
         </div>
@@ -40,7 +45,10 @@
 @endsection
 
 @section('script')
-    <script>
-        $('#flash-overlay-modal').modal();
+    {!! Html::script('assets/js/parsley.min.js')  !!}
+    {!! Html::script('assets/js/select2.min.js')  !!}
+    <script type="text/javascript">
+        $(".select2-multi").select2();
+        $(".select2-multi").select2().val({{ $post->tags()->getRelatedIds() }}).trigger('change')
     </script>
 @endsection
