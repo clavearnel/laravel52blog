@@ -89,6 +89,10 @@ class TagController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id) {
-        //
+        $tag = Tag::find($id);
+        $tag->posts()->detach();
+        $tag->delete();
+        flash()->overlay('You have successfully deleted a Tag', 'Delete');
+        return redirect()->route('tags.index');
     }
 }

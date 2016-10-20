@@ -13,7 +13,8 @@
     "laravelcollective/html": "5.2.*",
     "laracasts/flash": "^2.0",
     "cviebrock/eloquent-sluggable": "^4.1",
-    "doctrine/dbal": "^2.5"
+    "doctrine/dbal": "^2.5",
+    "mews/purifier": "^2.0"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

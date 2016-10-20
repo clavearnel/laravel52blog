@@ -1,6 +1,6 @@
 @extends('index')
-
-@section('pagetitle', 'Home')
+<?php $titleTag = htmlspecialchars($post->title); ?>
+@section('pagetitle', "$titleTag")
 @section('style')
     <link rel="stylesheet" href="{{ asset('assets/css/default-theme.css') }}">
 @endsection
@@ -29,6 +29,47 @@
             </article>
             <p>Posted In: {{ $post->category->name }}</p>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h2><span class="fa fa-comment"></span> {{ $post->comments->count() }}  Comments</h2>
+            @foreach($post->comments as $comment)
+                <div class="comment">
+                    <div class="author-info">
+                          <img src="{{ "https://www.gravatar.com/avatar/".md5(strtolower(trim($comment->email)))."?s=50" }}" class="author-images" alt="">
+                        <div class="author-name">
+                            <h4>{{ $comment->name }}</h4>
+                            <p class="author-time">{{ date('F nS, Y - g:iA', strtotime($comment->created_at)) }}</p>
+                        </div>
+                    </div>
+                    <div class="comment-content">
+                        {{$comment->comment}}
+                    </div>
+                </div>
+            @endforeach
+        </div>
+    </div>
+    <div class="row">
+        {!! Form::open(['route'=> ['comments.store', $post->id], 'method'=>'POST']) !!}
+        <div class="row">
+            <div class="col-md-6">
+                {{ Form::label('name', 'Name') }}
+                {{ Form::text('name', null, ['class' => 'form-control']) }}
+            </div>
+            <div class="col-md-6">
+                {{ Form::label('email', 'Email')  }}
+                {{ Form::text('email', null, ['class' => 'form-control']) }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                {{ Form::label('comment', 'Comment')  }}
+                {{ Form::text('comment', null, ['class' => 'form-control']) }}
+                <br>
+                {{ Form::submit('Add Comment', ['class'=> 'btn btn-success']) }}
+            </div>
+        </div>
+        {!! Form::close() !!}
     </div>
 @endsection
 

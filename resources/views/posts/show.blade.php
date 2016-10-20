@@ -13,6 +13,31 @@
                     <span class="label label-default">{{ $tag->name }}</span>
                 @endforeach
             </div>
+            <div class="comments">
+                <h3>Comments
+                    <small>{{ $post->comments->count() }} total</small>
+                </h3>
+                <table class="table table-striped table-hover">
+                    <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Comments</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    @foreach($post->comments as $comment)
+                        <tr>
+                            <td>{{ $comment->name }}</td>
+                            <td>{{ $comment->email }}</td>
+                            <td>{{ $comment->comment }}</td>
+                            <td><a href="{{ route('comments.edit', $comment->id) }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a> <a href="{{ route('comments.delete', $comment->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
         <div class="col-md-4">
             <div class="well">
