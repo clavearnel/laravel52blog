@@ -3,6 +3,14 @@
 @section('style')
     {!! Html::style('assets/css/parsley.css') !!}
     {!! Html::style('assets/css/select2.min.css') !!}
+    {!! Html::script('assets/js/tinymce/tinymce.min.js')  !!}
+    <script>
+        tinymce.init({
+            selector: '.body',
+            plugins: "codesample",
+            toolbar: "newdocument, bold, italic, underline, strikethrough, alignleft, aligncenter, alignright, alignjustify, styleselect, formatselect, fontselect, fontsizeselect, cut, copy, paste, bullist, numlist, outdent, indent, blockquote, undo, redo, removeformat, subscript, superscript codesample"
+        });
+    </script>
 @endsection
 @section('content')
     <div class="row">
@@ -26,7 +34,7 @@
                 @endforeach
             </select>
             {!! Form::label('body', 'Body') !!}
-            {!! Form::textarea('body', null, ['class'=>'form-control', 'required'=>'']) !!}
+            {!! Form::textarea('body', null, ['class'=>'form-control body', 'required'=>'']) !!}
             {!! Form::submit('Create Post',['class'=>'btn btn-success', 'style'=>'margin-top:10px;']) !!}
             {!! Form::token() !!}
             {!! Form::close() !!}

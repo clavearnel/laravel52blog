@@ -39,8 +39,6 @@
                     <label for="">Message</label>
                     <textarea name="message" id="message" cols="30" rows="10" class="form-control"></textarea>
                 </div>
-
-
                 <button type="submit" class="btn btn-primary">Submit</button>
             </form>
         </div>

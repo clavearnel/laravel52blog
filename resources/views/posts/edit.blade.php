@@ -3,6 +3,15 @@
 @section('style')
     {!! Html::style('assets/css/parsley.css') !!}
     {!! Html::style('assets/css/select2.min.css') !!}
+    {!! Html::script('assets/js/tinymce/tinymce.min.js')  !!}
+    <script>
+        tinymce.init({
+            selector: '.body',
+            extended_valid_elements : 'pre[class],code',
+            plugins: 'codesample code',
+            toolbar: 'undo redo styleselect bold italic alignleft aligncenter alignright bullist numlist outdent indent codesample code'
+        });
+    </script>
 @endsection
 @section('content')
     <div class="row">
@@ -15,7 +24,7 @@
             {{ Form::label('tags', 'Tags')  }}
             {{ Form::select('tags[]', $tags, null, ['class'=>'form-control select2-multi', 'multiple'=> 'multiple'] ) }}
             {!! Form::label('body', 'Body') !!}
-            {!! Form::textarea('body', null, ['class'=>'form-control', 'required'=>'']) !!}
+            {!! Form::textarea('body', null, ['class'=>'form-control body', 'required'=>'']) !!}
         </div>
         <div class="col-md-4">
             <div class="well">

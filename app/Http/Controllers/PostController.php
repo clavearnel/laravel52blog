@@ -8,7 +8,7 @@ use App\Http\Requests;
 use App\Post;
 use App\Category;
 use App\Tag;
-
+use Mews\Purifier\Facades\Purifier;
 class PostController extends Controller
 {
     public function __construct()
@@ -57,7 +57,7 @@ class PostController extends Controller
         $post = new Post;
         $post->title = $request->title;
         $post->category_id = $request->category_id;
-        $post->body = $request->body;
+        $post->body = Purifier::clean($request->body);
 
         $post->save();
 
@@ -118,7 +118,7 @@ class PostController extends Controller
 
         $post = Post::find($id);
         $post->title = $request->input('title');
-        $post->body = $request->input('body');
+        $post->body = Purifier::clean($request->input('body'));
         $post->category_id = $request->category_id;
 
 

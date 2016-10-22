@@ -1,13 +1,16 @@
 @extends('layouts.app')
 @section('pagetitle', 'Posts - Show Post')
 @section('style')
+    {!! Html::style('assets/js/prismjs/themes/prism-twilight.css') !!}
+    {!! Html::script('assets/js/prismjs/prism.js')  !!}
 
 @endsection
 @section('content')
     <div class="row">
+
         <div class="col-md-8">
             <h1>{{ $post->title }}</h1>
-            <p>{{ $post->body }}</p>
+            <p>{!! $post->body  !!} </p>
             <div class="tags">
                 @foreach($post->tags as $tag)
                     <span class="label label-default">{{ $tag->name }}</span>
@@ -32,7 +35,10 @@
                             <td>{{ $comment->name }}</td>
                             <td>{{ $comment->email }}</td>
                             <td>{{ $comment->comment }}</td>
-                            <td><a href="{{ route('comments.edit', $comment->id) }}" class="btn btn-primary"><i class="fa fa-pencil"></i></a> <a href="{{ route('comments.delete', $comment->id) }}" class="btn btn-danger"><i class="fa fa-trash"></i></a></td>
+                            <td><a href="{{ route('comments.edit', $comment->id) }}" class="btn btn-primary"><i
+                                            class="fa fa-pencil"></i></a> <a
+                                        href="{{ route('comments.delete', $comment->id) }}" class="btn btn-danger"><i
+                                            class="fa fa-trash"></i></a></td>
                         </tr>
                     @endforeach
                     </tbody>
