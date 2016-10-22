@@ -8,7 +8,9 @@ use App\Http\Requests;
 use App\Post;
 use App\Category;
 use App\Tag;
+use Illuminate\Support\Facades\Storage;
 use Mews\Purifier\Facades\Purifier;
+use Image;
 class PostController extends Controller
 {
     public function __construct()
@@ -51,7 +53,7 @@ class PostController extends Controller
             'title' => 'required|max:255',
             'category_id' => 'required|integer',
             'body' => 'required',
-
+            'featured_image'=>'sometimes|image'
         ]);
 
         $post = new Post;
@@ -59,6 +61,27 @@ class PostController extends Controller
         $post->category_id = $request->category_id;
         $post->body = Purifier::clean($request->body);
 
+        if($request->hasFile('featured_image')){
+            $image = $request->file('featured_image');
+            $filename = time().'.'.$image->getClientOriginalExtension();
+            //thumbnail
+            $location = public_path('/assets/img/thumbnail');
+            $img = Image::make($image->getRealPath());
+            $img->resize(100, 100)->save($location.'/'.$filename);
+
+            //feature image
+            $location = public_path('/assets/img/featured');
+            $img = Image::make($image->getRealPath());
+            $img->resize(1900, 492, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($location.'/'.$filename);
+
+            //original image
+            $location = public_path('/assets/img');
+            $image->move($location, $filename);
+            //store image filename to db
+            $post->image = $filename;
+        }
         $post->save();
 
         $post->tags()->sync($request->tags, false);
@@ -99,6 +122,10 @@ class PostController extends Controller
         foreach ($tags as $tag){
             $tags2[$tag->id] = $tag->name;
         }
+
+
+
+
         return view('posts.edit')->withPost($post)->withCategories($cats)->withTags($tags2);
     }
 
@@ -114,6 +141,8 @@ class PostController extends Controller
         $this->validate($request, [
             'title' => 'required|max:255',
             'body' => 'required',
+            'category_id'=>'required|integer',
+            'featured_image' => 'image'
         ]);
 
         $post = Post::find($id);
@@ -121,6 +150,33 @@ class PostController extends Controller
         $post->body = Purifier::clean($request->input('body'));
         $post->category_id = $request->category_id;
 
+        if($request->hasFile('featured_image')){
+            $image = $request->file('featured_image');
+            $filename = time().'.'.$image->getClientOriginalExtension();
+            //thumbnail
+            $location = public_path('/assets/img/thumbnail');
+            $img = Image::make($image->getRealPath());
+            $img->resize(100, 100)->save($location.'/'.$filename);
+
+            //feature image
+            $location = public_path('/assets/img/featured');
+            $img = Image::make($image->getRealPath());
+            $img->resize(1900, 492, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($location.'/'.$filename);
+
+            //original image
+            $location = public_path('/assets/img');
+            $image->move($location, $filename);
+
+            $oldFilename = $post->image;
+            //store image filename to db
+            $post->image = $filename;
+
+            Storage::delete($oldFilename);
+            Storage::delete('featured/'.$oldFilename);
+            Storage::delete('thumbnail/'.$oldFilename);
+        }
 
         $post->save();
         if(isset($request->tags)){

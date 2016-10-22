@@ -14,7 +14,9 @@
     "laracasts/flash": "^2.0",
     "cviebrock/eloquent-sluggable": "^4.1",
     "doctrine/dbal": "^2.5",
-    "mews/purifier": "^2.0"
+    "mews/purifier": "^2.0",
+    "intervention/image": "^2.3",
+    "barryvdh/laravel-elfinder": "^0.3.8"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",

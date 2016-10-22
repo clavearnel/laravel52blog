@@ -16,7 +16,7 @@
     <div class="row">
         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
             <h1>Create Post</h1>
-            {!! Form::open(array('route'=>'posts.store', 'data-parsley-validate'=>'')) !!}
+            {!! Form::open(array('route'=>'posts.store', 'data-parsley-validate'=>'', 'files'=>true )) !!}
             {!! Form::label('title', 'Title') !!}
             {!! Form::text('title', null, ['class'=>'form-control', 'required'=>'', 'maxlength'=>'255']) !!}
             {{ Form::label('category_id', 'Category')  }}
@@ -33,6 +33,8 @@
                     <option value="{{ $tag->id }}">{{ $tag->name }}</option>
                 @endforeach
             </select>
+            {!! Form::label('featured_image', 'Upload Featured Image') !!}
+            {!! Form::file('featured_image') !!}
             {!! Form::label('body', 'Body') !!}
             {!! Form::textarea('body', null, ['class'=>'form-control body', 'required'=>'']) !!}
             {!! Form::submit('Create Post',['class'=>'btn btn-success', 'style'=>'margin-top:10px;']) !!}

@@ -15,7 +15,7 @@
 @endsection
 @section('content')
     <div class="row">
-        {!! Form::model($post, ['route'=>['posts.update', $post->id],'method'=>'PUT'])!!}
+        {!! Form::model($post, ['route'=>['posts.update', $post->id],'method'=>'PUT', 'files'=>true]  )  !!}
         <div class="col-md-8">
             {!! Form::label('title', 'Title') !!}
             {!! Form::text('title', null, ['class'=>'form-control', 'required'=>'', 'maxlength'=>'255']) !!}
@@ -23,6 +23,10 @@
             {{ Form::select('category_id', $categories, null, ['class'=>'form-control', 'required'=>''] ) }}
             {{ Form::label('tags', 'Tags')  }}
             {{ Form::select('tags[]', $tags, null, ['class'=>'form-control select2-multi', 'multiple'=> 'multiple'] ) }}
+            {!! Form::label('featured_image', 'Upload Featured Image') !!}
+            {!! Form::file('featured_image') !!}
+            <img src="{{ asset('assets/img/'.$post->image) }}" alt="" style="width:400px">
+            <br>
             {!! Form::label('body', 'Body') !!}
             {!! Form::textarea('body', null, ['class'=>'form-control body', 'required'=>'']) !!}
         </div>
