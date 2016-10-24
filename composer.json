@@ -16,7 +16,7 @@
     "doctrine/dbal": "^2.5",
     "mews/purifier": "^2.0",
     "intervention/image": "^2.3",
-    "barryvdh/laravel-elfinder": "^0.3.8"
+    "unisharp/laravel-filemanager": "^1.6"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",
